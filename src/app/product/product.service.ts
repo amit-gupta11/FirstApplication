@@ -20,7 +20,16 @@ export class ProductService{
       );
   }
 
-
+ // Get one product
+  // Since we are working with a json file, we can only retrieve all products
+  // So retrieve all products and then find the one we want using 'map'
+  getProduct(id: number): Observable<IProduct | undefined> {
+    return this.getProducts()
+      .pipe(
+        map((products: IProduct[]) => products.find(p => p.productId === id))
+      );
+  }
+  
   private handleError(err: HttpErrorResponse): Observable<never> {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
